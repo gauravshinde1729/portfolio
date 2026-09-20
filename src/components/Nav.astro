@@ -33,7 +33,7 @@ import { NAV, LINKS, SITE } from '../config';
   .nav[data-open] .burger span:nth-child(2) { opacity: 0; }
   .nav[data-open] .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
   .nav[data-open] .tabs { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: .5rem var(--gutter) 1rem; }
-  .tabs a { color: var(--gray); padding: .65rem .5rem; min-height: 44px; display: flex; align-items: center; }
+  .tabs a { color: var(--gray); padding: .65rem .5rem; min-height: 44px; display: flex; align-items: center; white-space: nowrap; overflow-wrap: normal; }
   .tabs a::before { content: '~/'; color: var(--green-dim); margin-right: 0; }
   .tabs a:hover, .tabs a[aria-current='true'] { color: var(--green); text-decoration: none; }
 
@@ -45,10 +45,18 @@ import { NAV, LINKS, SITE } from '../config';
   @media (min-width: 900px) {
     .host { display: inline; }
     .burger { display: none; }
-    .tabs { display: flex; gap: .1rem; }
-    .tabs a { padding: .25rem .6rem; min-height: 0; font-size: .85rem; border-radius: 4px; }
+    .tabs { display: flex; gap: .1rem; flex-shrink: 0; }
+    .tabs a { padding: .25rem .35rem; min-height: 0; font-size: .85rem; border-radius: 4px; }
+    .tabs a::before { display: none; }
     .tabs a[aria-current='true'] { background: rgba(0, 255, 65, .08); }
-    .brand { margin-right: 0; }
+    .brand { margin-right: 0; flex-shrink: 0; overflow: visible; }
     .dl { margin-left: auto; }
+  }
+
+  /* Room for the '~/' prefixes only when the bar can be wider than the 960px content column. */
+  @media (min-width: 1200px) {
+    .bar { max-width: 1120px; }
+    .tabs a { padding: .25rem .4rem; }
+    .tabs a::before { display: block; }
   }
 </style>
