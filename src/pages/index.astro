@@ -1,13 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import Section from '../components/Section.astro';
-import Terminal from '../components/Terminal.astro';
+import Boot from '../components/Boot.astro';
+import Intro from '../components/sections/Intro.astro';
 ---
 
 <Base>
-  <Section id="intro" command="shell check">
-    <Terminal title="shell">
-      <p>layout shell ok</p>
-    </Terminal>
-  </Section>
+  <Boot slot="boot" />
+  <Intro />
 </Base>

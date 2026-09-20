@@ -1,0 +1,31 @@
+---
+---
+
+<script is:inline>
+  try {
+    if (
+      !matchMedia('(prefers-reduced-motion: reduce)').matches &&
+      !sessionStorage.getItem('booted') &&
+      !location.hash
+    ) {
+      document.documentElement.dataset.boot = 'pending';
+    }
+  } catch (e) {}
+</script>
+
+<div id="boot" class="boot" hidden aria-hidden="true">
+  <pre id="boot-log" class="log"></pre>
+  <p class="skip-hint">press any key or tap to skip</p>
+</div>
+
+<script>
+  import '../scripts/boot.ts';
+</script>
+
+<style is:global>
+  .boot { position: fixed; inset: 0; z-index: 100; background: var(--bg); padding: 1.25rem var(--gutter); overflow: hidden; transition: opacity .25s ease; }
+  html[data-boot='pending'] .boot { display: block; }
+  .boot.boot-out { opacity: 0; }
+  .boot .log { margin: 0; font: inherit; font-size: .85rem; line-height: 1.7; color: var(--green); white-space: pre-wrap; }
+  .boot .skip-hint { position: absolute; bottom: 1.25rem; left: var(--gutter); margin: 0; color: var(--gray); font-size: .75rem; }
+</style>

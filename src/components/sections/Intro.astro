@@ -1,0 +1,55 @@
+---
+import { resume } from '../../data/resume';
+import { LINKS } from '../../config';
+---
+
+<section id="intro" class="intro">
+  <div class="container grid">
+    <div class="text">
+      <p class="cmd"><span class="ps1">$</span>whoami</p>
+      <h1><span class="typed" data-typed>{resume.name}</span><span class="cursor" aria-hidden="true"></span></h1>
+      <p class="headline">{resume.headline}</p>
+
+      <p class="cmd"><span class="ps1">$</span>cat about.txt</p>
+      {resume.about.map((p) => <p class="about">{p}</p>)}
+
+      <p class="cmd"><span class="ps1">$</span>ls skills/</p>
+      <dl class="skills">
+        {
+          resume.skills.map((g) => (
+            <>
+              <dt>{g.label}</dt>
+              <dd>{g.items.join(', ')}</dd>
+            </>
+          ))
+        }
+      </dl>
+
+      <a class="btn" href={LINKS.resume} target="_blank" rel="noopener" download>$ download resume</a>
+    </div>
+    <div class="photo">
+      <img src="/images/photo.jpg" alt={`Portrait of ${resume.name}`} width="320" height="320" fetchpriority="high" />
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../../scripts/typed.ts';
+</script>
+
+<style>
+  .intro { padding-block: 2.5rem 3rem; }
+  .grid { display: grid; gap: 2rem; align-items: center; }
+  h1 { font-size: clamp(2rem, 8vw, 3.25rem); color: var(--green); margin-bottom: .25rem; }
+  .headline { color: var(--amber); font-size: 1.05rem; margin-bottom: 2rem; }
+  .about { max-width: 62ch; }
+  .skills { margin: 0 0 1.75rem; display: grid; grid-template-columns: max-content 1fr; gap: .25rem 2ch; font-size: .9rem; }
+  .skills dt { color: var(--amber); }
+  .skills dd { margin: 0; color: var(--gray); }
+  .photo img { width: min(70vw, 320px); aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 2px solid var(--green); box-shadow: 0 0 0 6px rgba(0, 255, 65, .08), 0 0 48px rgba(0, 255, 65, .4); margin-inline: auto; }
+  @media (min-width: 768px) {
+    .intro { padding-block: 4rem 5rem; }
+    .grid { grid-template-columns: 1.6fr 1fr; gap: 3rem; }
+    .photo img { width: 320px; margin-inline: 0 auto; }
+  }
+</style>
