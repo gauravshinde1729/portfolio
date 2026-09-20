@@ -36,9 +36,9 @@ const circle = await sharp(photo).composite([{ input: mask, blend: 'dest-in' }])
 const card = Buffer.from(`<svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="#0d1117"/>
   <circle cx="${cx}" cy="${cy}" r="${D / 2 + 12}" fill="none" stroke="#00ff41" stroke-width="4" opacity="0.85"/>
-  <text x="80" y="235" font-family="monospace" font-size="34" fill="#8b949e">$ whoami</text>
-  <text x="80" y="315" font-family="monospace" font-size="64" font-weight="700" fill="#00ff41">${esc(resume.name)}</text>
-  <text x="80" y="375" font-family="monospace" font-size="30" fill="#f0c040">${esc(resume.headline)}</text>
+  <text x="80" y="235" font-family="'JetBrains Mono', 'DejaVu Sans Mono', Consolas, 'Courier New', monospace" font-size="34" fill="#8b949e">$ whoami</text>
+  <text x="80" y="315" font-family="'JetBrains Mono', 'DejaVu Sans Mono', Consolas, 'Courier New', monospace" font-size="64" font-weight="700" fill="#00ff41">${esc(resume.name)}</text>
+  <text x="80" y="375" font-family="'JetBrains Mono', 'DejaVu Sans Mono', Consolas, 'Courier New', monospace" font-size="30" fill="#f0c040">${esc(resume.headline)}</text>
   <rect x="80" y="405" width="22" height="40" fill="#00ff41"/>
 </svg>`);
 
