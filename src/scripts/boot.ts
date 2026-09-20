@@ -5,6 +5,7 @@ const overlay = document.getElementById('boot');
 const log = document.getElementById('boot-log');
 
 if (root.dataset.boot === 'pending' && overlay && log) {
+  root.dataset.bootStarted = '1'; // tells the inline watchdog in Boot.astro that this script owns cleanup
   let finishing = false;
   let index = 0;
 

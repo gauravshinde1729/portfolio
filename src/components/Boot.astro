@@ -9,6 +9,15 @@
       !location.hash
     ) {
       document.documentElement.dataset.boot = 'pending';
+      // Watchdog: if boot.ts never starts (failed/blocked chunk), do not leave the page covered.
+      setTimeout(function () {
+        var root = document.documentElement;
+        if (root.dataset.bootStarted || root.dataset.boot !== 'pending') return;
+        delete root.dataset.boot;
+        var o = document.getElementById('boot');
+        if (o) o.remove();
+        window.dispatchEvent(new Event('boot:done'));
+      }, 6000);
     }
   } catch (e) {}
 </script>
