@@ -27,11 +27,18 @@ $$
 ```python
 def merge_sort(xs):
     if len(xs) <= 1:
-        return xs
+        return list(xs)
     mid = len(xs) // 2
     left, right = merge_sort(xs[:mid]), merge_sort(xs[mid:])
-    out = []
-    while left and right:
-        out.append(left.pop(0) if left[0] <= right[0] else right.pop(0))
-    return out + left + right
+    out, i, j = [], 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            out.append(left[i])
+            i += 1
+        else:
+            out.append(right[j])
+            j += 1
+    out.extend(left[i:])
+    out.extend(right[j:])
+    return out
 ```
