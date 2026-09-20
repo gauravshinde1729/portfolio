@@ -2,7 +2,7 @@
 import Section from '../Section.astro';
 import Terminal from '../Terminal.astro';
 import { getResearch } from '../../lib/collections';
-import { formatDate } from '../../lib/format';
+import { formatYear } from '../../lib/format';
 
 const papers = await getResearch();
 ---
@@ -13,7 +13,7 @@ const papers = await getResearch();
       papers.map((p) => (
         <Terminal title={`${p.id}.pdf`}>
           <h3>{p.data.title}</h3>
-          <p class="meta">{formatDate(p.data.date)}</p>
+          <p class="meta">{formatYear(p.data.date)}</p>
           <p class="abstract">{p.data.abstract}</p>
           {p.data.tags.length > 0 && <ul class="tags">{p.data.tags.map((t) => <li>#{t}</li>)}</ul>}
           <p class="actions">
