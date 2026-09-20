@@ -1,0 +1,37 @@
+---
+title: "Recurrences and the Master Theorem"
+description: "Solving divide-and-conquer recurrences without unrolling them."
+date: 2026-02-22
+tags: [algorithms, math]
+draft: false
+---
+
+> **Sample post.** Placeholder content that shows math and code rendering. Replace it with your own writing.
+
+Divide-and-conquer algorithms usually satisfy a recurrence of the form
+
+$$
+T(n) = a\,T\!\left(\frac{n}{b}\right) + f(n)
+$$
+
+where $a \ge 1$ subproblems of size $n/b$ are solved and $f(n)$ is the cost of splitting and merging.
+
+## Merge sort
+
+Here $a = 2$, $b = 2$ and $f(n) = \Theta(n)$. Since $n^{\log_b a} = n^{\log_2 2} = n$ matches $f(n)$, the middle case of the master theorem gives
+
+$$
+T(n) = \Theta(n \log n).
+$$
+
+```python
+def merge_sort(xs):
+    if len(xs) <= 1:
+        return xs
+    mid = len(xs) // 2
+    left, right = merge_sort(xs[:mid]), merge_sort(xs[mid:])
+    out = []
+    while left and right:
+        out.append(left.pop(0) if left[0] <= right[0] else right.pop(0))
+    return out + left + right
+```

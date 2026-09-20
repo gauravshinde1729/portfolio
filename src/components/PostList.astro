@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/format';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+const { posts } = Astro.props;
+---
+
+<ul class="posts">
+  {
+    posts.map((p) => {
+      const external = p.data.externalUrl;
+      return (
+        <li class="post">
+          <span class="date">{formatDate(p.data.date)}</span>
+          <div class="main">
+            <a class="name" href={external ?? `/blog/${p.id}/`} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+              {p.data.title}{external && ' ↗'}
+            </a>
+            <p class="desc">{p.data.description}</p>
+            {p.data.tags.length > 0 && <ul class="tags">{p.data.tags.map((t) => <li>#{t}</li>)}</ul>}
+          </div>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .posts { list-style: none; }
+  .post { display: grid; gap: .15rem 2ch; padding: .9rem 0; border-bottom: 1px dashed var(--border); }
+  .post:last-child { border-bottom: 0; }
+  .date { color: var(--gray); font-size: .85rem; }
+  .name { font-weight: 700; }
+  .desc { margin: .15rem 0 .35rem; color: var(--gray); font-size: .9rem; }
+  @media (min-width: 768px) { .post { grid-template-columns: 11ch 1fr; } }
+</style>

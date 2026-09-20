@@ -1,0 +1,29 @@
+---
+title: "Bayes' Rule for Engineers"
+description: "A practical look at updating beliefs, with a spam-filter example."
+date: 2026-01-30
+tags: [probability, math]
+draft: false
+---
+
+> **Sample post.** Placeholder content that shows math and code rendering. Replace it with your own writing.
+
+Bayes' rule tells you how to update a belief after seeing evidence:
+
+$$
+P(H \mid E) = \frac{P(E \mid H)\,P(H)}{P(E)}
+$$
+
+Suppose $P(\text{spam}) = 0.3$, and the word "winner" appears in $60\%$ of spam and $2\%$ of legitimate mail. Then
+
+$$
+P(\text{spam} \mid \text{winner}) = \frac{0.6 \cdot 0.3}{0.6 \cdot 0.3 + 0.02 \cdot 0.7} \approx 0.93.
+$$
+
+```python
+def posterior(prior, p_e_given_h, p_e_given_not_h):
+    num = p_e_given_h * prior
+    return num / (num + p_e_given_not_h * (1 - prior))
+
+print(round(posterior(0.3, 0.6, 0.02), 2))  # 0.93
+```

@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import Terminal from '../../components/Terminal.astro';
+import PostList from '../../components/PostList.astro';
+import { getBlogPosts } from '../../lib/collections';
+
+const posts = await getBlogPosts();
+---
+
+<Base title="Blog" description="Writing on machine learning, algorithms, and systems.">
+  <div class="container" style="padding-block: 2rem 3rem;">
+    <p class="cmd"><a href="/#intro"><span class="ps1">$</span>cd ..</a></p>
+    <h1 class="cmd"><span class="ps1">$</span>ls blog/</h1>
+    <Terminal title="~/blog">
+      <PostList posts={posts} />
+    </Terminal>
+  </div>
+</Base>

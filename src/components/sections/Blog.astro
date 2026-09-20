@@ -1,0 +1,19 @@
+---
+import Section from '../Section.astro';
+import Terminal from '../Terminal.astro';
+import PostList from '../PostList.astro';
+import { getBlogPosts } from '../../lib/collections';
+
+const posts = await getBlogPosts();
+---
+
+<Section id="blog" command="ls blog/">
+  <Terminal title="~/blog">
+    <PostList posts={posts} />
+  </Terminal>
+  <p class="all"><a href="/blog/">$ ls blog/ --all</a></p>
+</Section>
+
+<style>
+  .all { margin: 1rem 0 0; }
+</style>
