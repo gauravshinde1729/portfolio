@@ -1,0 +1,18 @@
+---
+import SocialLinks from './SocialLinks.astro';
+import { SITE } from '../config';
+---
+
+<footer class="footer">
+  <div class="container inner">
+    <p class="line"><span class="ps1">$</span>echo "© {new Date().getFullYear()} {SITE.name}"</p>
+    <SocialLinks />
+  </div>
+</footer>
+
+<style>
+  .footer { border-top: 1px solid var(--border); padding-block: 2rem; margin-top: 2rem; }
+  .inner { display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; }
+  .line { margin: 0; color: var(--gray); font-size: .85rem; }
+  @media (min-width: 768px) { .inner { flex-direction: row; justify-content: space-between; align-items: center; } }
+</style>

@@ -1,0 +1,29 @@
+---
+import Icon from './Icon.astro';
+import { LINKS } from '../config';
+
+const items = [
+  { name: 'github', label: 'GitHub', href: LINKS.github, external: true },
+  { name: 'linkedin', label: 'LinkedIn', href: LINKS.linkedin, external: true },
+  { name: 'leetcode', label: 'LeetCode', href: LINKS.leetcode, external: true },
+  { name: 'email', label: 'Email', href: LINKS.email, external: false },
+] as const;
+---
+
+<ul class="social">
+  {
+    items.map((i) => (
+      <li>
+        <a href={i.href} aria-label={i.label} title={i.label} target={i.external ? '_blank' : undefined} rel={i.external ? 'noopener' : undefined}>
+          <Icon name={i.name} size={22} />
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .social { display: flex; gap: .5rem; list-style: none; }
+  a { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--border); border-radius: 6px; color: var(--gray); transition: color .15s, border-color .15s, box-shadow .15s; }
+  a:hover { color: var(--green); border-color: var(--green); box-shadow: 0 0 12px rgba(0, 255, 65, .25); text-decoration: none; }
+</style>

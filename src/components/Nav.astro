@@ -1,0 +1,47 @@
+---
+import { NAV, LINKS, SITE } from '../config';
+---
+
+<header class="nav">
+  <div class="bar container">
+    <a class="brand" href="/#intro" aria-label="Home">{SITE.handle}@portfolio:~<span class="cursor" aria-hidden="true"></span></a>
+    <nav id="site-nav" class="tabs" aria-label="Primary">
+      {NAV.map((n) => <a href={`/#${n.id}`} data-nav={n.id}>{n.label}</a>)}
+    </nav>
+    <a class="btn dl" href={LINKS.resume} target="_blank" rel="noopener" download>$ download resume</a>
+    <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<script>
+  import '../scripts/nav.ts';
+</script>
+
+<style>
+  .nav { position: sticky; top: 0; z-index: 50; background: rgba(13, 17, 23, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .bar { position: relative; display: flex; align-items: center; gap: .75rem; min-height: var(--nav-h); }
+  .brand { color: var(--green); font-weight: 700; white-space: nowrap; margin-right: auto; }
+  .brand:hover { text-decoration: none; }
+  .tabs { display: none; }
+  .dl { min-height: 36px; padding: .25rem .75rem; font-size: .8rem; white-space: nowrap; }
+  .burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 0 11px; background: none; border: 1px solid var(--border); border-radius: 6px; cursor: pointer; }
+  .burger span { height: 2px; background: var(--green); transition: transform .2s, opacity .2s; }
+  .nav[data-open] .burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav[data-open] .burger span:nth-child(2) { opacity: 0; }
+  .nav[data-open] .burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav[data-open] .tabs { display: flex; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--border); padding: .5rem var(--gutter) 1rem; }
+  .tabs a { color: var(--gray); padding: .65rem .5rem; min-height: 44px; display: flex; align-items: center; }
+  .tabs a::before { content: '~/'; color: var(--green-dim); margin-right: 0; }
+  .tabs a:hover, .tabs a[aria-current='true'] { color: var(--green); text-decoration: none; }
+
+  @media (min-width: 900px) {
+    .burger { display: none; }
+    .tabs { display: flex; gap: .1rem; }
+    .tabs a { padding: .25rem .6rem; min-height: 0; font-size: .85rem; border-radius: 4px; }
+    .tabs a[aria-current='true'] { background: rgba(0, 255, 65, .08); }
+    .brand { margin-right: 0; }
+    .dl { margin-left: auto; }
+  }
+</style>

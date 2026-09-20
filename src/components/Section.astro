@@ -1,0 +1,19 @@
+---
+interface Props {
+  id: string;
+  command: string;
+}
+const { id, command } = Astro.props;
+---
+
+<section id={id} class="section reveal">
+  <div class="container">
+    <h2 class="cmd"><span class="ps1">$</span>{command}</h2>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section { padding-block: 3rem; }
+  @media (min-width: 768px) { .section { padding-block: 4.5rem; } }
+</style>
