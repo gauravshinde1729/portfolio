@@ -1,0 +1,34 @@
+---
+import Section from '../Section.astro';
+import Terminal from '../Terminal.astro';
+import { getResearch } from '../../lib/collections';
+import { formatDate } from '../../lib/format';
+
+const papers = await getResearch();
+---
+
+<Section id="research" command="ls research/">
+  <div class="papers">
+    {
+      papers.map((p) => (
+        <Terminal title={`${p.id}.pdf`}>
+          <h3>{p.data.title}</h3>
+          <p class="meta">{formatDate(p.data.date)}</p>
+          <p class="abstract">{p.data.abstract}</p>
+          {p.data.tags.length > 0 && <ul class="tags">{p.data.tags.map((t) => <li>#{t}</li>)}</ul>}
+          <p class="actions">
+            <a class="btn" href={p.data.paperUrl} target="_blank" rel="noopener">$ view paper</a>
+            <a class="btn btn-ghost" href={p.data.paperUrl} download>$ download</a>
+          </p>
+        </Terminal>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .papers { display: grid; gap: 1.5rem; }
+  h3 { color: var(--green); font-size: 1.1rem; }
+  .abstract { color: var(--text); max-width: 75ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1.25rem 0 0; }
+</style>
