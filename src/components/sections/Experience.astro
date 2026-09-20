@@ -1,0 +1,23 @@
+---
+import Section from '../Section.astro';
+import { resume } from '../../data/resume';
+---
+
+<Section id="experience" command="cat experience.log">
+  <ol class="timeline">
+    {
+      resume.experience.map((e) => (
+        <li class="entry">
+          <h3>
+            {e.role} <span class="at">@</span> <span class="company">{e.company}</span>
+          </h3>
+          <p class="meta">
+            {e.start === e.end ? e.start : `${e.start} – ${e.end}`}
+            {e.location && ` · ${e.location}`}
+          </p>
+          <ul>{e.bullets.map((b) => <li>{b}</li>)}</ul>
+        </li>
+      ))
+    }
+  </ol>
+</Section>

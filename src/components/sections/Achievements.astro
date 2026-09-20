@@ -1,0 +1,29 @@
+---
+import Section from '../Section.astro';
+import Terminal from '../Terminal.astro';
+import { resume } from '../../data/resume';
+---
+
+<Section id="achievements" command="cat achievements.log">
+  <Terminal title="/var/log/achievements.log">
+    <ul class="syslog">
+      {
+        resume.achievements.map((a) => (
+          <li>
+            <span class="ts">[{a.date ?? '----'}]</span> <span class="lvl">INFO</span> <span class="msg">{a.text}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </Terminal>
+</Section>
+
+<style>
+  .syslog { list-style: none; font-size: .9rem; }
+  .syslog li { padding: .35rem 0; display: grid; grid-template-columns: 1fr; gap: 0 1ch; }
+  .ts { color: var(--gray); }
+  .lvl { color: var(--green); font-weight: 700; }
+  @media (min-width: 768px) {
+    .syslog li { display: block; }
+  }
+</style>

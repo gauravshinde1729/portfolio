@@ -1,0 +1,32 @@
+---
+import Section from '../Section.astro';
+import { resume } from '../../data/resume';
+import { LINKS } from '../../config';
+---
+
+<Section id="education" command="cat education.log">
+  <ol class="timeline">
+    {
+      resume.education.map((e) => (
+        <li class="entry">
+          <h3>
+            {e.degree} <span class="at">@</span> <span class="company">{e.institution}</span>
+          </h3>
+          <p class="meta">
+            {e.start === e.end ? e.start : `${e.start} – ${e.end}`}
+            {e.location && ` · ${e.location}`}
+            {e.grade && ` · ${e.grade}`}
+          </p>
+          {e.details && e.details.length > 0 && <ul>{e.details.map((d) => <li>{d}</li>)}</ul>}
+        </li>
+      ))
+    }
+  </ol>
+  <p class="open">
+    <a class="btn btn-ghost" href={LINKS.admissionLetter} target="_blank" rel="noopener">$ open admission-letter.pdf</a>
+  </p>
+</Section>
+
+<style>
+  .open { margin: 2rem 0 0; }
+</style>
