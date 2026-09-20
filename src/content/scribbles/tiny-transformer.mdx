@@ -1,0 +1,31 @@
+---
+title: "Tiny Transformer"
+description: "A character-level transformer trained on a small text corpus."
+date: 2026-03-05
+tags: [ml, transformers]
+status: WIP
+hasSystemDesign: false
+githubUrl: https://github.com/gauravshinde1729
+---
+
+> **Sample entry.** This is placeholder content that shows how a Scribble renders. Replace it with your own project.
+
+Goal: a minimal decoder-only transformer, small enough to train on a laptop.
+
+## Plan
+
+1. Tokenize at the character level.
+2. Implement causal self-attention.
+3. Stack blocks with residual connections and layer norm.
+4. Train, sample, and compare against a bigram baseline.
+
+```python
+import torch
+import torch.nn.functional as F
+
+def causal_attention(q, k, v):
+    scores = q @ k.transpose(-2, -1) / q.size(-1) ** 0.5
+    mask = torch.tril(torch.ones_like(scores)).bool()
+    scores = scores.masked_fill(~mask, float("-inf"))
+    return F.softmax(scores, dim=-1) @ v
+```

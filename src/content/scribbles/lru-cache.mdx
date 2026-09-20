@@ -1,0 +1,34 @@
+---
+title: "LRU Cache from Scratch"
+description: "A hash map plus a doubly linked list gives O(1) get and put."
+date: 2026-01-20
+tags: [data-structures, python]
+status: Done
+hasSystemDesign: false
+githubUrl: https://github.com/gauravshinde1729
+---
+
+> **Sample entry.** This is placeholder content that shows how a Scribble renders. Replace it with your own project.
+
+The classic trick: keep entries in recency order in a linked list and index them with a dictionary.
+
+```python
+from collections import OrderedDict
+
+class LRUCache:
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.data: OrderedDict[str, int] = OrderedDict()
+
+    def get(self, key: str) -> int | None:
+        if key not in self.data:
+            return None
+        self.data.move_to_end(key)
+        return self.data[key]
+
+    def put(self, key: str, value: int) -> None:
+        self.data[key] = value
+        self.data.move_to_end(key)
+        if len(self.data) > self.capacity:
+            self.data.popitem(last=False)
+```

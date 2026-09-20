@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/format';
+
+interface Props {
+  items: CollectionEntry<'scribbles'>[];
+}
+const { items } = Astro.props;
+---
+
+<ul class="ls">
+  {
+    items.map((s) => (
+      <li class="row">
+        <span class="date">{formatDate(s.data.date)}</span>
+        <span class={`badge badge-${s.data.status.toLowerCase()}`}>{s.data.status}</span>
+        <span class="main">
+          <a class="name" href={`/scribbles/${s.id}/`}>{s.data.title}</a>
+          {s.data.hasSystemDesign && <span class="badge badge-sd">sys-design</span>}
+          <span class="desc">{s.data.description}</span>
+          {s.data.tags.length > 0 && <span class="tagline">{s.data.tags.map((t) => `#${t}`).join(' ')}</span>}
+        </span>
+        {s.data.githubUrl && (
+          <a class="gh" href={s.data.githubUrl} target="_blank" rel="noopener">[github]</a>
+        )}
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .ls { list-style: none; }
+  .row { display: grid; grid-template-columns: auto 1fr; gap: .25rem 1.5ch; padding: .9rem 0; border-bottom: 1px dashed var(--border); align-items: start; }
+  .row:last-child { border-bottom: 0; }
+  .date { color: var(--gray); font-size: .85rem; }
+  .main { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: .25rem 1.5ch; align-items: baseline; }
+  .name { font-weight: 700; }
+  .desc { flex-basis: 100%; color: var(--gray); font-size: .9rem; }
+  .tagline { flex-basis: 100%; color: var(--gray); font-size: .8rem; }
+  .gh { grid-column: 1 / -1; font-size: .85rem; color: var(--amber); }
+  @media (min-width: 768px) {
+    .row { grid-template-columns: 11ch 7ch 1fr auto; gap: 0 2ch; }
+    .main { grid-column: auto; }
+    .gh { grid-column: auto; }
+  }
+</style>

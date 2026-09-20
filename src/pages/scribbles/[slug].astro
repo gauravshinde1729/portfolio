@@ -1,0 +1,23 @@
+---
+import { render } from 'astro:content';
+import Article from '../../layouts/Article.astro';
+import { getScribbles } from '../../lib/collections';
+
+export async function getStaticPaths() {
+  const items = await getScribbles();
+  return items.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { data } = entry;
+---
+
+<Article title={data.title} description={data.description} date={data.date} tags={data.tags} backHref="/#scribbles" backLabel="scribbles">
+  <Fragment slot="meta">
+    <span class={`badge badge-${data.status.toLowerCase()}`}>{data.status}</span>
+    {data.hasSystemDesign && <span class="badge badge-sd">sys-design</span>}
+    {data.githubUrl && <a href={data.githubUrl} target="_blank" rel="noopener">[github]</a>}
+  </Fragment>
+  <Content />
+</Article>

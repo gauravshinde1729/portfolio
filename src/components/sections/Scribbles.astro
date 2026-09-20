@@ -1,0 +1,14 @@
+---
+import Section from '../Section.astro';
+import Terminal from '../Terminal.astro';
+import ScribbleList from '../ScribbleList.astro';
+import { getScribbles } from '../../lib/collections';
+
+const items = await getScribbles();
+---
+
+<Section id="scribbles" command="ls -l scribbles/">
+  <Terminal title="~/scribbles">
+    <ScribbleList items={items} />
+  </Terminal>
+</Section>

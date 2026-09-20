@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import Terminal from '../../components/Terminal.astro';
+import ScribbleList from '../../components/ScribbleList.astro';
+import { getScribbles } from '../../lib/collections';
+
+const items = await getScribbles();
+---
+
+<Base title="Scribbles" description="Projects, experiments, and system design notes.">
+  <div class="container" style="padding-block: 2rem 3rem;">
+    <p class="cmd"><a href="/#intro"><span class="ps1">$</span>cd ..</a></p>
+    <h1 class="cmd"><span class="ps1">$</span>ls -l scribbles/</h1>
+    <Terminal title="~/scribbles">
+      <ScribbleList items={items} />
+    </Terminal>
+  </div>
+</Base>

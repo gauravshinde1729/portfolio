@@ -1,0 +1,33 @@
+---
+title: "URL Shortener"
+description: "Base62-encoded short links with a write-through cache."
+date: 2026-02-10
+tags: [system-design, backend]
+status: POC
+hasSystemDesign: true
+githubUrl: https://github.com/gauravshinde1729
+---
+
+> **Sample entry.** This is placeholder content that shows how a Scribble renders. Replace it with your own project.
+
+A short link service maps a long URL to a compact code and redirects on lookup.
+
+## Design sketch
+
+- **Write path:** generate a unique id, encode it as base62, store `code -> url`.
+- **Read path:** cache lookup first, database on a miss, then `301` to the target.
+- **Scale:** the read path dominates, so cache aggressively and shard by code.
+
+```ts
+const ALPHABET = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+export function encodeBase62(n: number): string {
+  if (n === 0) return ALPHABET[0];
+  let out = '';
+  while (n > 0) {
+    out = ALPHABET[n % 62] + out;
+    n = Math.floor(n / 62);
+  }
+  return out;
+}
+```
