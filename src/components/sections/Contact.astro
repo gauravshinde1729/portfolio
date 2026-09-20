@@ -1,0 +1,50 @@
+---
+import Section from '../Section.astro';
+import Terminal from '../Terminal.astro';
+import SocialLinks from '../SocialLinks.astro';
+import { SITE, LINKS } from '../../config';
+---
+
+<Section id="contact" command={`mail -s 'Hello' ${SITE.email}`}>
+  <Terminal title="mail">
+    <!-- Works without JS as a GET form to mailto:; contact.ts upgrades it with correct encoding. -->
+    <form id="contact-form" class="mail" action={LINKS.email} method="get" data-to={SITE.email}>
+      <p class="row"><span class="label">to:</span> <span class="fixed">{SITE.email}</span></p>
+      <div class="row">
+        <label class="label" for="subject">subject:</label>
+        <input id="subject" name="subject" type="text" value="Hello" autocomplete="off" />
+      </div>
+      <div class="col">
+        <label class="label" for="body">message:</label>
+        <textarea id="body" name="body" rows="6" required></textarea>
+      </div>
+      <div class="actions">
+        <button class="btn" type="submit">$ send</button>
+        <span id="contact-status" role="status" aria-live="polite"></span>
+      </div>
+    </form>
+  </Terminal>
+
+  <p class="fallback">
+    or write directly: <a href={LINKS.email}>{SITE.email}</a>
+  </p>
+  <SocialLinks />
+</Section>
+
+<script>
+  import '../../scripts/contact.ts';
+</script>
+
+<style>
+  .mail { display: grid; gap: .9rem; }
+  .row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem 1.5ch; margin: 0; }
+  .col { display: grid; gap: .35rem; }
+  .label { color: var(--green); min-width: 9ch; }
+  .fixed { color: var(--amber); }
+  input, textarea { flex: 1 1 16ch; width: 100%; background: var(--bg); color: var(--text); border: 1px solid var(--border); border-radius: 4px; padding: .6rem .75rem; font: inherit; }
+  input:focus, textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 2px rgba(0, 255, 65, .2); }
+  textarea { resize: vertical; min-height: 8rem; }
+  .actions { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  #contact-status { color: var(--amber); font-size: .85rem; }
+  .fallback { margin: 1.25rem 0 1rem; color: var(--gray); font-size: .9rem; }
+</style>
