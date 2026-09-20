@@ -18,7 +18,7 @@ const papers = await getResearch();
           {p.data.tags.length > 0 && <ul class="tags">{p.data.tags.map((t) => <li>#{t}</li>)}</ul>}
           <p class="actions">
             <a class="btn" href={p.data.paperUrl} target="_blank" rel="noopener">$ view paper</a>
-            <a class="btn btn-ghost" href={p.data.paperUrl} download>$ download</a>
+            <a class="btn btn-ghost" href={p.data.paperUrl} target="_blank" rel="noopener" download>$ download</a>
           </p>
         </Terminal>
       ))
