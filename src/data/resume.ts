@@ -125,10 +125,8 @@ export const resume: Resume = {
       institution: 'PICT (Pune University)',
       degree: 'B.E in Information Technology',
       location: 'Pune',
-      // The resume gives only "2023 batch" (no start year), so both fields
-      // carry that text as written.
-      start: '2023 batch',
-      end: '2023 batch',
+      start: '2019',
+      end: '2023',
       grade: 'CGPA: 9.64',
     },
   ],
@@ -146,8 +144,6 @@ export const resume: Resume = {
       text: "Winner of DeepIntent's Annual Company-Wide GenAI Hackathon",
     },
     { date: 'Sept. 2020', text: 'Finalist PASCKATHON' },
-    { date: '03/2021 - 04/2021', text: 'Finalist Rakuten India Hackathon' },
-    { text: 'GeeksForGeeks (200+ Problems)' },
-    { text: 'LeetCode (400+ Problems)' },
+    { date: '03/2021 - 04/2021', text: 'Finalist Rakuten India Hackathon' }
   ],
 };
